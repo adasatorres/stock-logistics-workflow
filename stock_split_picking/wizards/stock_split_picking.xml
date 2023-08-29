@@ -8,7 +8,15 @@
                 <group>
                     <field name="mode" />
                     <field name="spread"/>
-                    <field name="picking_ids" attrs="{'invisible' : [('spread', '!=', True)]}"/>
+                    <field name="picking_ids" mode="tree" readonly="1" onclick="0" attrs="{'invisible' : [('spread', '!=', True)]}">
+                        <tree>
+                            <field name="name"/>
+                            <field name="location_id"/>
+                            <field name="location_dest_id"/>
+                            <field name="origin" />
+                            <field name="state" widget="badge"/>
+                        </tree>
+                    </field>
                     <field
                         name="move_ids"
                         attrs="{'invisible': [('mode', '!=', 'selection')], 'required': [('mode', '=', 'selection')]}"
