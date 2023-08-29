@@ -63,7 +63,8 @@ class StockSplitPicking(models.TransientModel):
 
     def _spread_picking(self):
         return self.env["stock.picking"].search([
-            ('group_id', 'in', self._get_group_ids())
+            ('group_id', 'in', self._get_group_ids()),
+            ('state', 'not in', ['done', 'cancel'])
         ])
             
         
