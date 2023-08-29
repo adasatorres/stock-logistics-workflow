@@ -8,8 +8,8 @@
                 <group>
                     <field name="mode" />
                     <field name="spread"/>
-                    <field name="picking_ids" mode="tree" readonly="1" onclick="0" attrs="{'invisible' : [('spread', '!=', True)]}">
-                        <tree>
+                    <field name="picking_ids" mode="tree" readonly="1" attrs="{'invisible' : [('spread', '!=', True)]}">
+                        <tree edit="0" create="0" delete="0" >
                             <field name="name"/>
                             <field name="location_id"/>
                             <field name="location_dest_id"/>
