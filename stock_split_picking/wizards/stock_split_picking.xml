@@ -8,6 +8,7 @@
                 <group>
                     <field name="mode" />
                     <field name="picking_ids" invisible="True" />
+                    <field name="spread"/>
                     <field
                         name="move_ids"
                         attrs="{'invisible': [('mode', '!=', 'selection')], 'required': [('mode', '=', 'selection')]}"

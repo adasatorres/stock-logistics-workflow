@@ -1,7 +1,7 @@
 # Copyright 2020 Hunki Enterprises BV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class StockSplitPicking(models.TransientModel):
@@ -17,7 +17,7 @@ class StockSplitPicking(models.TransientModel):
         required=True,
         default="done",
     )
-
+    spread = fields.Boolean(string="Spread")
     picking_ids = fields.Many2many(
         "stock.picking",
         default=lambda self: self._default_picking_ids(),
@@ -55,3 +55,21 @@ class StockSplitPicking(models.TransientModel):
         )
         action["domain"] = [("id", "in", pickings.ids)]
         return action
+
+    
+    def _get_group_ids(self):
+        return [picking.group_id.id for picking in self._default_picking_ids()]
+        
+
+    def _spread_picking(self):
+        return self.env["stock.picking"].search([
+            ('group_id', 'in', self._get_group_ids())
+        ])
+            
+        
+    @api.onchange('spread')
+    def spread_on_change(self):
+        if not self.spread:
+            self.picking_ids = self._default_picking_ids()
+        else:
+            self.picking_ids = self._spread_picking()
